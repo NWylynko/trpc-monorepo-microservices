@@ -5,6 +5,10 @@
   "files": [
     "base.json",
     "nextjs.json",
-    "react-library.json"
-  ]
+    "react-library.json",
+    "service.json"
+  ],
+  "devDependencies": {
+    "@tsconfig/node18": "^1.0.1"
+  }
 }
