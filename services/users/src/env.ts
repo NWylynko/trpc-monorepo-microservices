@@ -1,12 +1,12 @@
-/* eslint-disable turbo/no-undeclared-env-vars */
 import "dotenv/config";
+import { z } from "zod";
 
-const port = process.env.PORT
+const schema = z.object({
+  PORT: z.string().transform((port) => Number(port))
+})
 
-if (!port) {
-  throw new Error(`The environment variable PORT is not defined`);
-}
+const { PORT } = schema.parse(process.env);
 
 export const env = {
-  port: Number(port)
+  port: PORT,
 }
