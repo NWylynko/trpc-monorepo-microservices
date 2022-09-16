@@ -11,8 +11,13 @@
     "start": "node ./dist/index.js"
   },
   "dependencies": {
+    "@fastify/websocket": "^7.0.1",
+    "@trpc/client": "^10.0.0-proxy-alpha.76",
+    "@trpc/server": "^10.0.0-proxy-alpha.76",
     "dotenv": "^16.0.2",
-    "source-map-support": "^0.5.21"
+    "fastify": "^4.6.0",
+    "source-map-support": "^0.5.21",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/node": "^18.7.18",
