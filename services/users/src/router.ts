@@ -2,6 +2,11 @@ import merge from 'lodash.merge';
 import { groupsRouter } from './routers/groups';
 import { t } from './trpc';
 import { newUserSchema, updateUserSchema, userIdSchema, users } from "./users";
+import { z } from "zod";
+
+const userSchema = z.object({
+  userId: z.string()
+})
 
 export const usersAppRouter = t.router({
   create: t.procedure
@@ -24,7 +29,7 @@ export const usersAppRouter = t.router({
   update: t.procedure
     .input(updateUserSchema)
     .mutation(async ({ input: updateUser, ctx: { user } }) => {
-      const { userId } = user
+      const { userId } = await userSchema.parseAsync(user)
 
       if (!users.has(userId)) {
         throw new Error(`user does not exist`)
@@ -36,9 +41,8 @@ export const usersAppRouter = t.router({
       return updatedUser
     }),
   delete: t.procedure
-    .input(userIdSchema)
-    .mutation(async ({ input }) => {
-      const { userId } = input
+    .mutation(async ({ ctx }) => {
+      const { userId } = await userSchema.parseAsync(ctx.user)
 
       users.delete(userId);
 

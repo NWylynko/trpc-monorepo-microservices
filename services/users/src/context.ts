@@ -3,7 +3,7 @@ import { CreateFastifyContextOptions } from '@trpc/server/adapters/fastify';
 import { z } from "zod";
 
 const headersSchema = z.object({
-  token: z.string()
+  token: z.string().optional()
 })
 
 export function createContext({ req, res }: CreateFastifyContextOptions) {

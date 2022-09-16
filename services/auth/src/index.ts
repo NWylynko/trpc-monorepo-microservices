@@ -1,6 +1,8 @@
 import "source-map-support/register"
 import "dotenv/config"
 
+export type { AuthAppRouter } from "./router"
+
 import { server } from "./server";
 import { env } from "./env";
 

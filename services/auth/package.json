@@ -11,6 +11,7 @@
     "start": "node ./dist/index.js"
   },
   "dependencies": {
+    "@fastify/cors": "^8.1.0",
     "@trpc/client": "^10.0.0-proxy-alpha.76",
     "@trpc/server": "^10.0.0-proxy-alpha.76",
     "dotenv": "^16.0.2",

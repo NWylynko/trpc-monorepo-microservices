@@ -9,19 +9,29 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "12.2.5",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "ui": "*"
+    "@hookform/resolvers": "^2.9.8",
+    "@tanstack/react-query": "^4.3.4",
+    "@trpc/react": "^10.0.0-proxy-alpha.77",
+    "next": "^12.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.35.0",
+    "ui": "*",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@types/node": "^18.7.18",
-    "@types/react": "18.0.17",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "auth": "*",
     "eslint": "7.32.0",
     "eslint-config-custom": "*",
+    "groups": "*",
+    "messages": "*",
     "next-transpile-modules": "9.0.0",
     "tsconfig": "*",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.3",
+    "users": "*"
   }
 }

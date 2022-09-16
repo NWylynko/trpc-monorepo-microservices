@@ -17,7 +17,7 @@ export const authAppRouter = t.router({
     }),
   login: t.procedure
     .input(accountSchema)
-    .query(async ({ input: details }) => {
+    .mutation(async ({ input: details }) => {
       const { email, password } = details;
 
       const account = accounts.get(email);

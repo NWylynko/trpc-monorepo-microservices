@@ -1,6 +1,6 @@
 import { t } from "../trpc";
 import { z } from "zod"
-import { users } from "../users";
+import { users, userSchema } from "../users";
 
 export const groupIdSchema = z.object({
   groupId: z.string().uuid()
@@ -11,7 +11,7 @@ export const groupsRouter = t.router({
     .input(groupIdSchema)
     .mutation(async ({ input, ctx }) => {
       const { groupId } = input;
-      const { userId } = ctx.user;
+      const { userId } = await userSchema.parseAsync(ctx.user)
 
       const user = users.get(userId)
 
@@ -27,7 +27,7 @@ export const groupsRouter = t.router({
     .input(groupIdSchema)
     .mutation(async ({ input, ctx }) => {
       const { groupId } = input;
-      const { userId } = ctx.user;
+      const { userId } = await userSchema.parseAsync(ctx.user)
 
       const user = users.get(userId)
 
