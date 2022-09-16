@@ -1,7 +1,7 @@
 import { fastifyTRPCPlugin } from '@trpc/server/adapters/fastify';
 import fastify from 'fastify';
 import { createContext } from './context';
-import { appRouter } from './router';
+import { usersAppRouter } from './router';
 
 export const server = fastify({
   maxParamLength: 5000,
@@ -10,6 +10,6 @@ export const server = fastify({
 
 server.register(fastifyTRPCPlugin, {
   prefix: '/trpc',
-  trpcOptions: { router: appRouter, createContext },
+  trpcOptions: { router: usersAppRouter, createContext },
 });
 

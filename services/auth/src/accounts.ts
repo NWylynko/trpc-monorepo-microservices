@@ -13,12 +13,3 @@ type Account = z.infer<typeof accountSchema> &
 }
 
 export const accounts = new Map<string, Account>();
-
-const katt: Account = {
-  accountId: randomUUID(),
-  userId: randomUUID(),
-  email: 'katt@email.com',
-  password: 'super-secret'
-};
-
-accounts.set(katt.email, katt);

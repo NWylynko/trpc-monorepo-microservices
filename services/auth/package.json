@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "run-p dev:*",
-    "dev:run": "nodemon ./dist/index.ts",
+    "dev:run": "nodemon ./dist/index.js",
     "dev:build": "tsc --watch --preserveWatchOutput",
     "start": "node ./dist/index.js"
   },
@@ -14,6 +14,7 @@
     "@trpc/client": "^10.0.0-proxy-alpha.76",
     "@trpc/server": "^10.0.0-proxy-alpha.76",
     "dotenv": "^16.0.2",
+    "fastify": "^4.6.0",
     "source-map-support": "^0.5.21",
     "users": "*",
     "zod": "^3.19.1"

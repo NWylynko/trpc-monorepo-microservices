@@ -1,3 +1,4 @@
+/* eslint-disable turbo/no-undeclared-env-vars */
 import "dotenv/config";
 
 const port = process.env.PORT

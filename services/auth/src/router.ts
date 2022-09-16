@@ -1,13 +1,8 @@
-import "source-map-support/register"
-import "dotenv/config"
-
-import { initTRPC } from '@trpc/server';
 import { accounts, accountSchema } from "./accounts";
 import { users } from "./clients/users";
+import { t } from './trpc';
 
-export const t = initTRPC.create();
-
-export const appRouter = t.router({
+export const authAppRouter = t.router({
   register: t.procedure
     .input(accountSchema)
     .mutation(async ({ input: details }) => {
@@ -35,7 +30,7 @@ export const appRouter = t.router({
         throw new Error(`Password does not match`)
       }
 
-      const token = `123-very-long-token-321`
+      const token = account.userId
 
       return {
         ...account,
@@ -44,4 +39,4 @@ export const appRouter = t.router({
     })
 });
 
-export type AuthAppRouter = typeof appRouter;
+export type AuthAppRouter = typeof authAppRouter;

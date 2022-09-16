@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "run-p dev:*",
-    "dev:run": "nodemon ./dist/index.ts",
+    "dev:run": "nodemon ./dist/index.js",
     "dev:build": "tsc --watch --preserveWatchOutput",
     "start": "node ./dist/index.js"
   },

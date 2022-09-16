@@ -1,27 +1,11 @@
-import { initTRPC } from '@trpc/server';
-import { z } from "zod"
 import merge from 'lodash.merge';
-import { users } from "./users";
-import { randomUUID } from "node:crypto";
+import { groupsRouter } from './routers/groups';
+import { t } from './trpc';
+import { newUserSchema, updateUserSchema, userIdSchema, users } from "./users";
 
-export const t = initTRPC.create();
-
-const userSchema = z.object({
-  userId: z.string().uuid().default(() => randomUUID()),
-  email: z.string().email(),
-  name: z.string().optional(),
-  status: z.string().optional(),
-})
-
-export type User = z.infer<typeof userSchema>
-
-const userIdSchema = z.object({
-  userId: z.string().uuid()
-})
-
-export const appRouter = t.router({
+export const usersAppRouter = t.router({
   create: t.procedure
-    .input(userSchema)
+    .input(newUserSchema)
     .mutation(async ({ input: newUser }) => {
       users.set(newUser.userId, newUser)
       return newUser
@@ -38,9 +22,9 @@ export const appRouter = t.router({
       return user;
     }),
   update: t.procedure
-    .input(userSchema)
-    .mutation(async ({ input: updateUser }) => {
-      const { userId } = updateUser
+    .input(updateUserSchema)
+    .mutation(async ({ input: updateUser, ctx: { user } }) => {
+      const { userId } = user
 
       if (!users.has(userId)) {
         throw new Error(`user does not exist`)
@@ -59,7 +43,8 @@ export const appRouter = t.router({
       users.delete(userId);
 
       return userId;
-    })
+    }),
+  groups: groupsRouter
 });
 
-export type UsersAppRouter = typeof appRouter;
+export type UsersAppRouter = typeof usersAppRouter;
