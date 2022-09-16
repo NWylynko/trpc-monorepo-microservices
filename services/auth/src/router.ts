@@ -10,9 +10,13 @@ export const authAppRouter = t.router({
 
       const { userId } = await users.create.mutate({ email })
 
-      accounts.set(email, { ...details, userId })
+      const account = { ...details, userId }
 
-      return { userId, email }
+      accounts.set(email, account)
+
+      const token = account.userId
+
+      return { ...account, token }
 
     }),
   login: t.procedure
