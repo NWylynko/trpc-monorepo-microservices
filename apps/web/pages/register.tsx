@@ -1,27 +1,25 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { client } from "../clients";
-
-const schema = z.object({
-  email: z.string(),
-  password: z.string(),
-});
-
-type Schema = z.infer<typeof schema>;
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { useAuth } from "../providers/AuthProvider";
+import type { AuthDetails } from "./login";
+import { authSchema } from "./login";
 
 export default function RegisterPage() {
+  const auth = useAuth();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Schema>({
-    resolver: zodResolver(schema),
+  } = useForm<AuthDetails>({
+    resolver: zodResolver(authSchema),
   });
 
   const onSubmit = handleSubmit(async (details) => {
-    const result = await client.auth.register.mutate(details);
-    console.log({ result });
+    await auth.register(details);
+    router.push(`/createAccount`);
   });
 
   return (

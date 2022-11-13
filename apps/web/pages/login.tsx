@@ -1,27 +1,31 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { client } from "../clients";
+import { useAuth } from "../providers/AuthProvider";
 
-const schema = z.object({
+export const authSchema = z.object({
   email: z.string(),
   password: z.string(),
 });
 
-type Schema = z.infer<typeof schema>;
+export type AuthDetails = z.infer<typeof authSchema>;
 
 export default function LoginPage() {
+  const auth = useAuth();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Schema>({
-    resolver: zodResolver(schema),
+  } = useForm<AuthDetails>({
+    resolver: zodResolver(authSchema),
   });
 
   const onSubmit = handleSubmit(async (details) => {
-    const result = await client.auth.login.mutate(details);
-    console.log({ result });
+    await auth.login(details);
+    router.push(`/`);
   });
 
   return (

@@ -6,6 +6,11 @@ export const auth = createTRPCProxyClient<AuthAppRouter>({
   links: [
     httpBatchLink({
       url: `${env.NEXT_PUBLIC_AUTH_URL}/trpc`,
+      headers() {
+        return {
+          token: "123"
+        }
+      }
     }),
-  ],
+  ]
 });
